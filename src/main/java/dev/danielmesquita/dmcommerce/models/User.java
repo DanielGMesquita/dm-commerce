@@ -1,6 +1,7 @@
 package dev.danielmesquita.dmcommerce.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,10 +14,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @Column(unique = true)
     private String email;
+
+    @Pattern(regexp = "\\(\\d{2}\\) \\d{4,5}-\\d{4}", message = "O telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX")
     private String phone;
+
     private LocalDate birthDate;
+
     private String password;
 
     @OneToMany(mappedBy = "client")
