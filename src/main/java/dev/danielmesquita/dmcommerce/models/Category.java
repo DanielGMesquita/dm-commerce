@@ -1,62 +1,60 @@
 package dev.danielmesquita.dmcommerce.models;
 
 import jakarta.persistence.*;
-
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToMany(mappedBy = "categories")
-    private Set<Product> products = new HashSet<>();
+  private String name;
 
-    public Category() {
-    }
+  @ManyToMany(mappedBy = "categories")
+  private Set<Product> products = new HashSet<>();
 
-    public Category(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+  public Category() {}
 
-    public Long getId() {
-        return id;
-    }
+  public Category(Long id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+  public Set<Product> getProducts() {
+    return products;
+  }
 
-        Category category = (Category) o;
-        return Objects.equals(id, category.id);
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
+    Category category = (Category) o;
+    return Objects.equals(id, category.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(id);
+  }
 }

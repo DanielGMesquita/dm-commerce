@@ -1,7 +1,6 @@
 package dev.danielmesquita.dmcommerce.models;
 
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -11,104 +10,113 @@ import java.util.Set;
 @Table(name = "tb_product")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(columnDefinition = "TEXT") // ao mapear para o banco sql vai ser um text, não somente varchar
-    private String description;
-    private Double price;
-    private String imgUrl;
+  private String name;
 
-    @ManyToMany
-    @JoinTable(name = "tb_product_category",
-                joinColumns = @JoinColumn(name = "product_id"),
-                inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
+  @Column(
+      columnDefinition = "TEXT") // ao mapear para o banco sql vai ser um text, não somente varchar
+  private String description;
 
-    @OneToMany(mappedBy = "id.product")
-    private Set<OrderItem> items = new HashSet<>();
+  private Double price;
+  private String imgUrl;
 
-    public Product() {
-    }
+  @ManyToMany
+  @JoinTable(
+      name = "tb_product_category",
+      joinColumns = @JoinColumn(name = "product_id"),
+      inverseJoinColumns = @JoinColumn(name = "category_id"))
+  private Set<Category> categories = new HashSet<>();
 
-    public Product(Long id, String name, String description, Double price, String imgUrl, Set<Category> categories) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imgUrl = imgUrl;
-        this.categories = categories;
-    }
+  @OneToMany(mappedBy = "id.product")
+  private Set<OrderItem> items = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
+  public Product() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Product(
+      Long id,
+      String name,
+      String description,
+      Double price,
+      String imgUrl,
+      Set<Category> categories) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.imgUrl = imgUrl;
+    this.categories = categories;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public Double getPrice() {
-        return price;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public String getImgUrl() {
-        return imgUrl;
-    }
+  public Double getPrice() {
+    return price;
+  }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
+  public void setPrice(Double price) {
+    this.price = price;
+  }
 
-    public Set<Category> getCategories() {
-        return categories;
-    }
+  public String getImgUrl() {
+    return imgUrl;
+  }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
+  public void setImgUrl(String imgUrl) {
+    this.imgUrl = imgUrl;
+  }
 
-    public Set<OrderItem> getItems() {
-        return items;
-    }
+  public Set<Category> getCategories() {
+    return categories;
+  }
 
-    public List<Order> getOrders() {
-        return items.stream().map(OrderItem::getOrder).toList();
-    }
+  public void setCategories(Set<Category> categories) {
+    this.categories = categories;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+  public Set<OrderItem> getItems() {
+    return items;
+  }
 
-        Product product = (Product) o;
-        return Objects.equals(id, product.id);
-    }
+  public List<Order> getOrders() {
+    return items.stream().map(OrderItem::getOrder).toList();
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Product product = (Product) o;
+    return Objects.equals(id, product.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(id);
+  }
 }
