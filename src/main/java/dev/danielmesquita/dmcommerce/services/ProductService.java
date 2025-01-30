@@ -3,29 +3,23 @@ package dev.danielmesquita.dmcommerce.services;
 import dev.danielmesquita.dmcommerce.dtos.ProductDTO;
 import dev.danielmesquita.dmcommerce.models.Product;
 import dev.danielmesquita.dmcommerce.repositories.ProductRepository;
-import jakarta.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService {
   @Autowired private ProductRepository repository;
 
+  @Transactional(readOnly = true)
   public List<ProductDTO> findAll() {
-    List<ProductDTO> output = new ArrayList<>();
     List<Product> products = repository.findAll();
-    for (Product product : products) {
-      output.add(new ProductDTO(product));
-    }
-    return output;
+    return products.stream().map(ProductDTO::new).toList();
   }
 
   public ProductDTO findById(Long id) {
-    return repository
-        .findById(id)
-        .map(ProductDTO::new)
-        .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
+    Product productEntity = repository.findById(id).get();
+    return new ProductDTO(productEntity);
   }
 }
