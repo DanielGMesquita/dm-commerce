@@ -3,7 +3,7 @@ package dev.danielmesquita.dmcommerce.services;
 import dev.danielmesquita.dmcommerce.dtos.ProductDTO;
 import dev.danielmesquita.dmcommerce.models.Product;
 import dev.danielmesquita.dmcommerce.repositories.ProductRepository;
-import java.util.List;
+import dev.danielmesquita.dmcommerce.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +21,10 @@ public class ProductService {
   }
 
   public ProductDTO findById(Long id) {
-    Product productEntity = repository.findById(id).get();
+    Product productEntity =
+        repository
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     return new ProductDTO(productEntity);
   }
 
@@ -45,7 +48,7 @@ public class ProductService {
     return new ProductDTO(productEntity);
   }
 
-  private void dtoToEntity (ProductDTO productDTO, Product productEntity) {
+  private void dtoToEntity(ProductDTO productDTO, Product productEntity) {
     productEntity.setDescription(productDTO.getDescription());
     productEntity.setName(productDTO.getName());
     productEntity.setPrice(productDTO.getPrice());

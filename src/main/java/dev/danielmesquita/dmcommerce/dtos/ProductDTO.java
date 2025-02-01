@@ -3,13 +3,11 @@ package dev.danielmesquita.dmcommerce.dtos;
 import dev.danielmesquita.dmcommerce.models.Product;
 
 public class ProductDTO {
-  private Long id;
-  private String name;
-  private String description;
-  private Double price;
-  private String imgUrl;
-
-  public ProductDTO() {}
+  private final Long id;
+  private final String name;
+  private final String description;
+  private final Double price;
+  private final String imgUrl;
 
   public ProductDTO(Product product) {
     this.id = product.getId();
