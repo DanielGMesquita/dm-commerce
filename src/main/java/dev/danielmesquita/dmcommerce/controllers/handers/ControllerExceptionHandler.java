@@ -7,7 +7,6 @@ import dev.danielmesquita.dmcommerce.services.exceptions.ResourceNotFoundExcepti
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -38,10 +37,10 @@ public class ControllerExceptionHandler {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<CustomError> methodArgumentNotValid(
-          MethodArgumentNotValidException e, HttpServletRequest request) {
+      MethodArgumentNotValidException e, HttpServletRequest request) {
     HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
     ValidationError error =
-            new ValidationError(Instant.now(), 422, e.getMessage(), request.getRequestURI());
+        new ValidationError(Instant.now(), 422, e.getMessage(), request.getRequestURI());
     List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
     for (FieldError f : fieldErrors) {
       error.addError(f.getField(), f.getDefaultMessage());

@@ -2,9 +2,8 @@ package dev.danielmesquita.dmcommerce.controllers;
 
 import dev.danielmesquita.dmcommerce.dtos.ProductDTO;
 import dev.danielmesquita.dmcommerce.services.ProductService;
-import java.net.URI;
-
 import jakarta.validation.Valid;
+import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

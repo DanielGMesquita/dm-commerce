@@ -3,6 +3,8 @@ package dev.danielmesquita.dmcommerce.dtos;
 import dev.danielmesquita.dmcommerce.models.Product;
 import jakarta.validation.constraints.*;
 
+import java.util.Objects;
+
 public class ProductDTO {
 
   private Long id;
@@ -56,5 +58,20 @@ public class ProductDTO {
 
   public String getImgUrl() {
     return imgUrl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ProductDTO that = (ProductDTO) o;
+    return Double.compare(that.price, price) == 0 &&
+            Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, price);
   }
 }
