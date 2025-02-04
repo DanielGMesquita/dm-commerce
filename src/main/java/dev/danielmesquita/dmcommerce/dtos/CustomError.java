@@ -3,6 +3,7 @@ package dev.danielmesquita.dmcommerce.dtos;
 import java.time.Instant;
 
 public class CustomError {
+
   private final Instant timeStamp;
   private final Integer status;
   private final String error;

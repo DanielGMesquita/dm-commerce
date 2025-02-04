@@ -13,5 +13,7 @@ public class ProductControllerTest {
 
   @InjectMocks private ProductController productController;
 
-  private final Product productMock = TestMocks.productMock;
+  private final Product pcMock = TestMocks.pcMock;
+
+  private final Product smartphoneMock = TestMocks.smartphoneMock;
 }

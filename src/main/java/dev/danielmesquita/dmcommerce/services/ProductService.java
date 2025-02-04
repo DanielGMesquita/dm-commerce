@@ -3,16 +3,21 @@ package dev.danielmesquita.dmcommerce.services;
 import dev.danielmesquita.dmcommerce.dtos.ProductDTO;
 import dev.danielmesquita.dmcommerce.models.Product;
 import dev.danielmesquita.dmcommerce.repositories.ProductRepository;
+import dev.danielmesquita.dmcommerce.services.exceptions.DatabaseException;
 import dev.danielmesquita.dmcommerce.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService {
   @Autowired private ProductRepository repository;
+  private static final String PRODUCT_NOT_FOUND = "Product not found";
 
   @Transactional(readOnly = true)
   public Page<ProductDTO> findAll(Pageable pageable) {
@@ -22,9 +27,7 @@ public class ProductService {
 
   public ProductDTO findById(Long id) {
     Product productEntity =
-        repository
-            .findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(PRODUCT_NOT_FOUND));
     return new ProductDTO(productEntity);
   }
 
@@ -40,12 +43,16 @@ public class ProductService {
 
   @Transactional
   public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
-    Product productEntity = repository.getReferenceById(id);
-    dtoToEntity(productDTO, productEntity);
+    try {
+      Product productEntity = repository.getReferenceById(id);
+      dtoToEntity(productDTO, productEntity);
 
-    productEntity = repository.save(productEntity);
+      productEntity = repository.save(productEntity);
 
-    return new ProductDTO(productEntity);
+      return new ProductDTO(productEntity);
+    } catch (EntityNotFoundException e) {
+      throw new ResourceNotFoundException(PRODUCT_NOT_FOUND);
+    }
   }
 
   private void dtoToEntity(ProductDTO productDTO, Product productEntity) {
@@ -55,8 +62,15 @@ public class ProductService {
     productEntity.setImgUrl(productDTO.getImgUrl());
   }
 
-  @Transactional
+  @Transactional(propagation = Propagation.SUPPORTS)
   public void delete(Long id) {
-    repository.deleteById(id);
+    if (!repository.existsById(id)) {
+      throw new ResourceNotFoundException(PRODUCT_NOT_FOUND);
+    }
+    try {
+      repository.deleteById(id);
+    } catch (DataIntegrityViolationException e) {
+      throw new DatabaseException("Database integrity fail");
+    }
   }
 }
