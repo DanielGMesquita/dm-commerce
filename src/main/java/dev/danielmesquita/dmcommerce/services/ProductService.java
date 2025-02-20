@@ -1,7 +1,10 @@
 package dev.danielmesquita.dmcommerce.services;
 
+import dev.danielmesquita.dmcommerce.dtos.CategoryDTO;
 import dev.danielmesquita.dmcommerce.dtos.ProductDTO;
+import dev.danielmesquita.dmcommerce.models.Category;
 import dev.danielmesquita.dmcommerce.models.Product;
+import dev.danielmesquita.dmcommerce.repositories.CategoryRepository;
 import dev.danielmesquita.dmcommerce.repositories.ProductRepository;
 import dev.danielmesquita.dmcommerce.services.exceptions.DatabaseException;
 import dev.danielmesquita.dmcommerce.services.exceptions.ResourceNotFoundException;
@@ -17,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductService {
   @Autowired private ProductRepository repository;
+  @Autowired private CategoryRepository categoryRepository;
   private static final String PRODUCT_NOT_FOUND = "Product not found";
 
   @Transactional(readOnly = true)
@@ -60,6 +64,10 @@ public class ProductService {
     productEntity.setName(productDTO.getName());
     productEntity.setPrice(productDTO.getPrice());
     productEntity.setImgUrl(productDTO.getImgUrl());
+    for (CategoryDTO categoryDTO : productDTO.getCategories()) {
+      Category entity = categoryRepository.getReferenceById(categoryDTO.getId());
+      productEntity.getCategories().add(entity);
+    }
   }
 
   @Transactional(propagation = Propagation.SUPPORTS)

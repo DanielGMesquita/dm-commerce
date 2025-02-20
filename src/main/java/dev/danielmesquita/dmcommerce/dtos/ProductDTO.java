@@ -1,8 +1,10 @@
 package dev.danielmesquita.dmcommerce.dtos;
 
+import dev.danielmesquita.dmcommerce.models.Category;
 import dev.danielmesquita.dmcommerce.models.Product;
 import jakarta.validation.constraints.*;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ProductDTO {
@@ -22,6 +24,8 @@ public class ProductDTO {
 
   private String imgUrl;
 
+  private List<CategoryDTO> categories = new ArrayList<>();
+
   public ProductDTO() {}
 
   public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
@@ -38,6 +42,9 @@ public class ProductDTO {
     this.description = product.getDescription();
     this.price = product.getPrice();
     this.imgUrl = product.getImgUrl();
+    for (Category category : product.getCategories()) {
+      this.categories.add(new CategoryDTO(category));
+    }
   }
 
   public Long getId() {
@@ -60,14 +67,17 @@ public class ProductDTO {
     return imgUrl;
   }
 
+  public List<CategoryDTO> getCategories() {
+    return categories;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
     ProductDTO that = (ProductDTO) o;
-    return Double.compare(that.price, price) == 0 &&
-            Objects.equals(name, that.name);
+    return Double.compare(that.price, price) == 0 && Objects.equals(name, that.name);
   }
 
   @Override
