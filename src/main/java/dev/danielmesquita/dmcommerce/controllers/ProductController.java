@@ -18,8 +18,9 @@ public class ProductController {
   @Autowired private ProductService service;
 
   @GetMapping
-  private ResponseEntity<Page<ProductDTO>> getAllProducts(Pageable pageable) {
-    Page<ProductDTO> pageProductDTO = service.findAll(pageable);
+  private ResponseEntity<Page<ProductDTO>> getAllProducts(
+      @RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
+    Page<ProductDTO> pageProductDTO = service.findAll(name, pageable);
     return ResponseEntity.ok(pageProductDTO);
   }
 

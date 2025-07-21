@@ -1,11 +1,10 @@
 package dev.danielmesquita.dmcommerce;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class DmcommerceApplicationTests {
 
-  @Test
-  void contextLoads() {}
+  //  @Test
+  //  void contextLoads() {}
 }

@@ -24,11 +24,12 @@ public class ProductService {
   private static final String PRODUCT_NOT_FOUND = "Product not found";
 
   @Transactional(readOnly = true)
-  public Page<ProductDTO> findAll(Pageable pageable) {
-    Page<Product> products = repository.findAll(pageable);
+  public Page<ProductDTO> findAll(String name, Pageable pageable) {
+    Page<Product> products = repository.findByName(name, pageable);
     return products.map(ProductDTO::new);
   }
 
+  @Transactional(readOnly = true)
   public ProductDTO findById(Long id) {
     Product productEntity =
         repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(PRODUCT_NOT_FOUND));
