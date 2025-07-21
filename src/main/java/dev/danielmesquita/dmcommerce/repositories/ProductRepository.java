@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-  @Query(value = "SELECT p FROM Product p JOIN FETCH p.categories c WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))",
-  countQuery = "SELECT COUNT(p) FROM Product p JOIN p.categories c WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+  @Query(
+      value =
+          "SELECT p FROM Product p JOIN FETCH p.categories WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))",
+      countQuery =
+          "SELECT COUNT(p) FROM Product p JOIN p.categories WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")
   Page<Product> findByName(String name, Pageable pageable);
 }
