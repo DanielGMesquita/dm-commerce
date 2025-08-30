@@ -69,7 +69,7 @@ public class AuthorizationServerConfig {
   @Order(2)
   public SecurityFilterChain asSecurityFilterChain(HttpSecurity http) throws Exception {
 
-    OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+    http.with(OAuth2AuthorizationServerConfigurer.authorizationServer(), Customizer.withDefaults());
 
     // @formatter:off
     http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
@@ -158,7 +158,8 @@ public class AuthorizationServerConfig {
     return context -> {
       OAuth2ClientAuthenticationToken principal = context.getPrincipal();
       CustomUserAuthorities user = (CustomUserAuthorities) principal.getDetails();
-      List<String> authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+      List<String> authorities =
+          user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
       if (context.getTokenType().getValue().equals("access_token")) {
         // @formatter:off
         context.getClaims().claim("authorities", authorities).claim("username", user.getUsername());
