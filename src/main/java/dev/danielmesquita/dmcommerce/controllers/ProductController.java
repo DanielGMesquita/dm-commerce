@@ -25,7 +25,6 @@ public class ProductController {
     return ResponseEntity.ok(pageProductDTO);
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
   @GetMapping("/{id}")
   public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
     ProductDTO productDTO = service.findById(id);
