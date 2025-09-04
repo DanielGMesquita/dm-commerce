@@ -19,8 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService {
+
   @Autowired private ProductRepository repository;
+
   @Autowired private CategoryRepository categoryRepository;
+
   private static final String PRODUCT_NOT_FOUND = "Product not found";
 
   @Transactional(readOnly = true)

@@ -69,20 +69,24 @@ public class AuthorizationServerConfig {
   @Order(2)
   public SecurityFilterChain asSecurityFilterChain(HttpSecurity http) throws Exception {
 
-    http.with(OAuth2AuthorizationServerConfigurer.authorizationServer(), Customizer.withDefaults());
+    http.securityMatcher("/oauth2/**");
+    OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
+        new OAuth2AuthorizationServerConfigurer();
 
-    // @formatter:off
-    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-        .tokenEndpoint(
-            tokenEndpoint ->
-                tokenEndpoint
-                    .accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
-                    .authenticationProvider(
-                        new CustomPasswordAuthenticationProvider(
-                            authorizationService(),
-                            tokenGenerator(),
-                            userDetailsService,
-                            passwordEncoder())));
+    http.with(
+        authorizationServerConfigurer,
+        configurer -> {
+          configurer.tokenEndpoint(
+              tokenEndpoint ->
+                  tokenEndpoint
+                      .accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
+                      .authenticationProvider(
+                          new CustomPasswordAuthenticationProvider(
+                              authorizationService(),
+                              tokenGenerator(),
+                              userDetailsService,
+                              passwordEncoder())));
+        });
 
     http.oauth2ResourceServer(
         oauth2ResourceServer -> oauth2ResourceServer.jwt(Customizer.withDefaults()));

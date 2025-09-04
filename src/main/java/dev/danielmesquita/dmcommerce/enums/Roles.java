@@ -2,7 +2,7 @@ package dev.danielmesquita.dmcommerce.enums;
 
 public enum Roles {
   ROLE_ADMIN("ROLE_ADMIN"),
-  ROLE_USER("ROLE_USER");
+  ROLE_CLIENT("ROLE_CLIENT");
 
   private final String authority;
 
