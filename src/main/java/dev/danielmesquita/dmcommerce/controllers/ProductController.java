@@ -1,6 +1,7 @@
 package dev.danielmesquita.dmcommerce.controllers;
 
 import dev.danielmesquita.dmcommerce.dtos.ProductDTO;
+import dev.danielmesquita.dmcommerce.dtos.ProductMinDTO;
 import dev.danielmesquita.dmcommerce.services.ProductService;
 import jakarta.validation.Valid;
 import java.net.URI;
@@ -19,10 +20,10 @@ public class ProductController {
   @Autowired private ProductService service;
 
   @GetMapping
-  public ResponseEntity<Page<ProductDTO>> getAllProducts(
+  public ResponseEntity<Page<ProductMinDTO>> getAllProducts(
       @RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
-    Page<ProductDTO> pageProductDTO = service.findAll(name, pageable);
-    return ResponseEntity.ok(pageProductDTO);
+    Page<ProductMinDTO> productMinDTOPage = service.findAll(name, pageable);
+    return ResponseEntity.ok(productMinDTOPage);
   }
 
   @GetMapping("/{id}")

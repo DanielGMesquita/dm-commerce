@@ -2,6 +2,7 @@ package dev.danielmesquita.dmcommerce.services;
 
 import dev.danielmesquita.dmcommerce.dtos.CategoryDTO;
 import dev.danielmesquita.dmcommerce.dtos.ProductDTO;
+import dev.danielmesquita.dmcommerce.dtos.ProductMinDTO;
 import dev.danielmesquita.dmcommerce.models.Category;
 import dev.danielmesquita.dmcommerce.models.Product;
 import dev.danielmesquita.dmcommerce.repositories.CategoryRepository;
@@ -27,9 +28,9 @@ public class ProductService {
   private static final String PRODUCT_NOT_FOUND = "Product not found";
 
   @Transactional(readOnly = true)
-  public Page<ProductDTO> findAll(String name, Pageable pageable) {
+  public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
     Page<Product> products = repository.findByName(name, pageable);
-    return products.map(ProductDTO::new);
+    return products.map(ProductMinDTO::new);
   }
 
   @Transactional(readOnly = true)
