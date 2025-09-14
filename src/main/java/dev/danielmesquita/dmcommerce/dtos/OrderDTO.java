@@ -20,6 +20,7 @@ public class OrderDTO {
     orderStatus = entity.getStatus();
     client = new UserMinDTO(entity.getClient());
     payment = (entity.getPayment() == null) ? null : new PaymentDTO(entity.getPayment());
+    entity.getItems().forEach(item -> this.items.add(new OrderItemDTO(item)));
   }
 
   public OrderDTO(
