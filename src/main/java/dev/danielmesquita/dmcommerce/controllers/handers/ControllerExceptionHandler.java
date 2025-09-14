@@ -5,8 +5,10 @@ import dev.danielmesquita.dmcommerce.dtos.ValidationError;
 import dev.danielmesquita.dmcommerce.services.exceptions.DatabaseException;
 import dev.danielmesquita.dmcommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 import java.time.Instant;
 import java.util.List;
+import javax.naming.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -45,6 +47,24 @@ public class ControllerExceptionHandler {
     for (FieldError f : fieldErrors) {
       error.addError(f.getField(), f.getDefaultMessage());
     }
+    return ResponseEntity.status(status).body(error);
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<CustomError> accessDenied(
+        AccessDeniedException e, HttpServletRequest request) {
+      HttpStatus status = HttpStatus.FORBIDDEN;
+      CustomError error =
+          new CustomError(Instant.now(), 403, e.getMessage(), request.getRequestURI());
+      return ResponseEntity.status(status).body(error);
+  }
+
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<CustomError> authenticationException(
+          AuthenticationException e, HttpServletRequest request) {
+    HttpStatus status = HttpStatus.UNAUTHORIZED;
+    CustomError error =
+            new CustomError(Instant.now(), 401, e.getMessage(), request.getRequestURI());
     return ResponseEntity.status(status).body(error);
   }
 }
