@@ -24,6 +24,7 @@ public class ProductDTO {
 
   private String imgUrl;
 
+  @NotEmpty(message = "Product must have at least one category")
   private List<CategoryDTO> categories = new ArrayList<>();
 
   public ProductDTO() {}
