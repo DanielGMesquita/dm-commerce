@@ -51,20 +51,20 @@ public class ControllerExceptionHandler {
   }
 
   @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<CustomError> accessDenied(
-        AccessDeniedException e, HttpServletRequest request) {
-      HttpStatus status = HttpStatus.FORBIDDEN;
-      CustomError error =
-          new CustomError(Instant.now(), 403, e.getMessage(), request.getRequestURI());
-      return ResponseEntity.status(status).body(error);
+  public ResponseEntity<CustomError> accessDenied(
+      AccessDeniedException e, HttpServletRequest request) {
+    HttpStatus status = HttpStatus.FORBIDDEN;
+    CustomError error =
+        new CustomError(Instant.now(), 403, e.getMessage(), request.getRequestURI());
+    return ResponseEntity.status(status).body(error);
   }
 
   @ExceptionHandler(AuthenticationException.class)
   public ResponseEntity<CustomError> authenticationException(
-          AuthenticationException e, HttpServletRequest request) {
+      AuthenticationException e, HttpServletRequest request) {
     HttpStatus status = HttpStatus.UNAUTHORIZED;
     CustomError error =
-            new CustomError(Instant.now(), 401, e.getMessage(), request.getRequestURI());
+        new CustomError(Instant.now(), 401, e.getMessage(), request.getRequestURI());
     return ResponseEntity.status(status).body(error);
   }
 }
