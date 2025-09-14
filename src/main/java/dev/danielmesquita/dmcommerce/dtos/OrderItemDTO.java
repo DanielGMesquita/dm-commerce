@@ -16,12 +16,7 @@ public class OrderItemDTO {
     quantity = entity.getQuantity();
   }
 
-  public OrderItemDTO(Long productId, String name, Double price, Integer quantity) {
-    this.productId = productId;
-    this.name = name;
-    this.price = price;
-    this.quantity = quantity;
-  }
+  public OrderItemDTO() {}
 
   public Long getProductId() {
     return productId;

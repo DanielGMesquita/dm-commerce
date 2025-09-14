@@ -2,6 +2,8 @@ package dev.danielmesquita.dmcommerce.dtos;
 
 import dev.danielmesquita.dmcommerce.enums.OrderStatus;
 import dev.danielmesquita.dmcommerce.models.Order;
+import dev.danielmesquita.dmcommerce.models.OrderItem;
+import jakarta.validation.constraints.NotEmpty;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ public class OrderDTO {
   private OrderStatus orderStatus;
   private UserMinDTO client;
   private PaymentDTO payment;
+
+  @NotEmpty(message = "Order must have at least one item")
   private List<OrderItemDTO> items = new ArrayList<>();
 
   public OrderDTO(Order entity) {
@@ -20,7 +24,9 @@ public class OrderDTO {
     orderStatus = entity.getStatus();
     client = new UserMinDTO(entity.getClient());
     payment = (entity.getPayment() == null) ? null : new PaymentDTO(entity.getPayment());
-    entity.getItems().forEach(item -> this.items.add(new OrderItemDTO(item)));
+    for (OrderItem item : entity.getItems()) {
+      items.add(new OrderItemDTO(item));
+    }
   }
 
   public OrderDTO(
@@ -31,6 +37,8 @@ public class OrderDTO {
     this.client = client;
     this.payment = payment;
   }
+
+  public OrderDTO() {}
 
   public List<OrderItemDTO> getItems() {
     return items;

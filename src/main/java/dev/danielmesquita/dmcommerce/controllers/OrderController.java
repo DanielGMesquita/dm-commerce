@@ -2,13 +2,13 @@ package dev.danielmesquita.dmcommerce.controllers;
 
 import dev.danielmesquita.dmcommerce.dtos.OrderDTO;
 import dev.danielmesquita.dmcommerce.services.OrderService;
+import jakarta.validation.Valid;
+import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/orders")
@@ -21,5 +21,17 @@ public class OrderController {
   public ResponseEntity<OrderDTO> findById(@PathVariable Long id) {
     OrderDTO orderDTO = service.findById(id);
     return ResponseEntity.ok(orderDTO);
+  }
+
+  @PreAuthorize("hasRole('ROLE_CLIENT')")
+  @PostMapping
+  public ResponseEntity<OrderDTO> insertOrder(@Valid @RequestBody OrderDTO orderDTO) {
+    orderDTO = service.insert(orderDTO);
+    URI uri =
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(orderDTO.getId())
+            .toUri();
+    return ResponseEntity.created(uri).body(orderDTO);
   }
 }
