@@ -6,9 +6,11 @@ import dev.danielmesquita.dmcommerce.enums.OrderStatus;
 import dev.danielmesquita.dmcommerce.models.Order;
 import dev.danielmesquita.dmcommerce.models.OrderItem;
 import dev.danielmesquita.dmcommerce.models.Product;
+import dev.danielmesquita.dmcommerce.models.User;
 import dev.danielmesquita.dmcommerce.repositories.OrderItemRepository;
 import dev.danielmesquita.dmcommerce.repositories.OrderRepository;
 import dev.danielmesquita.dmcommerce.repositories.ProductRepository;
+import dev.danielmesquita.dmcommerce.services.exceptions.ForbiddenException;
 import dev.danielmesquita.dmcommerce.services.exceptions.ResourceNotFoundException;
 import java.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,13 @@ public class OrderService {
 
   @Transactional(readOnly = true)
   public OrderDTO findById(Long id) {
+    User authenticatedUser = userService.authenticated();
     Order orderEntity =
         repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+    if (!authenticatedUser.hasRole("ROLE_ADMIN")
+        && !orderEntity.getClient().getId().equals(authenticatedUser.getId())) {
+      throw new ForbiddenException("Access denied");
+    }
     return new OrderDTO(orderEntity);
   }
 

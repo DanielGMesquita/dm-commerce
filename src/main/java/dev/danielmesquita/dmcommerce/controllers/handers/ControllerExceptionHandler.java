@@ -3,9 +3,9 @@ package dev.danielmesquita.dmcommerce.controllers.handers;
 import dev.danielmesquita.dmcommerce.dtos.CustomError;
 import dev.danielmesquita.dmcommerce.dtos.ValidationError;
 import dev.danielmesquita.dmcommerce.services.exceptions.DatabaseException;
+import dev.danielmesquita.dmcommerce.services.exceptions.ForbiddenException;
 import dev.danielmesquita.dmcommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
-import java.nio.file.AccessDeniedException;
 import java.time.Instant;
 import java.util.List;
 import javax.naming.AuthenticationException;
@@ -50,9 +50,9 @@ public class ControllerExceptionHandler {
     return ResponseEntity.status(status).body(error);
   }
 
-  @ExceptionHandler(AccessDeniedException.class)
+  @ExceptionHandler(ForbiddenException.class)
   public ResponseEntity<CustomError> accessDenied(
-      AccessDeniedException e, HttpServletRequest request) {
+          ForbiddenException e, HttpServletRequest request) {
     HttpStatus status = HttpStatus.FORBIDDEN;
     CustomError error =
         new CustomError(Instant.now(), 403, e.getMessage(), request.getRequestURI());
