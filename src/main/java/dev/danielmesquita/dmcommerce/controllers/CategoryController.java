@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    @Autowired
-    private CategoryService service;
+  @Autowired private CategoryService service;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<CategoryDTO>> getAllCategories() {
-        List<CategoryDTO> categoryDTOS = service.findAll();
-        return ResponseEntity.ok(categoryDTOS);
-    }
+  @GetMapping
+  public ResponseEntity<List<CategoryDTO>> getAllCategories() {
+    List<CategoryDTO> categoryDTOS = service.findAll();
+    return ResponseEntity.ok(categoryDTOS);
+  }
 }
