@@ -1,7 +1,7 @@
 package dev.danielmesquita.dmcommerce.services;
 
 import dev.danielmesquita.dmcommerce.dtos.CategoryDTO;
-import dev.danielmesquita.dmcommerce.models.Category;
+import dev.danielmesquita.dmcommerce.entities.Category;
 import dev.danielmesquita.dmcommerce.repositories.CategoryRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

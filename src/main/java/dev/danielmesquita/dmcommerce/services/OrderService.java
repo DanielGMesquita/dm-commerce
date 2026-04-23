@@ -2,11 +2,11 @@ package dev.danielmesquita.dmcommerce.services;
 
 import dev.danielmesquita.dmcommerce.dtos.OrderDTO;
 import dev.danielmesquita.dmcommerce.dtos.OrderItemDTO;
+import dev.danielmesquita.dmcommerce.entities.Order;
+import dev.danielmesquita.dmcommerce.entities.OrderItem;
+import dev.danielmesquita.dmcommerce.entities.Product;
+import dev.danielmesquita.dmcommerce.entities.User;
 import dev.danielmesquita.dmcommerce.enums.OrderStatus;
-import dev.danielmesquita.dmcommerce.models.Order;
-import dev.danielmesquita.dmcommerce.models.OrderItem;
-import dev.danielmesquita.dmcommerce.models.Product;
-import dev.danielmesquita.dmcommerce.models.User;
 import dev.danielmesquita.dmcommerce.repositories.OrderItemRepository;
 import dev.danielmesquita.dmcommerce.repositories.OrderRepository;
 import dev.danielmesquita.dmcommerce.repositories.ProductRepository;

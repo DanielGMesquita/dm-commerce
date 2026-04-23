@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.dtos;
 
-import dev.danielmesquita.dmcommerce.models.OrderItem;
+import dev.danielmesquita.dmcommerce.entities.OrderItem;
 
 public class OrderItemDTO {
 

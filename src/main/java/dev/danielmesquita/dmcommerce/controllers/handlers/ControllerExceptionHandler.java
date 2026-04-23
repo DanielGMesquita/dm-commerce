@@ -1,4 +1,4 @@
-package dev.danielmesquita.dmcommerce.controllers.handers;
+package dev.danielmesquita.dmcommerce.controllers.handlers;
 
 import dev.danielmesquita.dmcommerce.dtos.CustomError;
 import dev.danielmesquita.dmcommerce.dtos.ValidationError;
@@ -52,7 +52,7 @@ public class ControllerExceptionHandler {
 
   @ExceptionHandler(ForbiddenException.class)
   public ResponseEntity<CustomError> accessDenied(
-          ForbiddenException e, HttpServletRequest request) {
+      ForbiddenException e, HttpServletRequest request) {
     HttpStatus status = HttpStatus.FORBIDDEN;
     CustomError error =
         new CustomError(Instant.now(), 403, e.getMessage(), request.getRequestURI());

@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.dtos;
 
-import dev.danielmesquita.dmcommerce.models.Category;
+import dev.danielmesquita.dmcommerce.entities.Category;
 
 public class CategoryDTO {
 

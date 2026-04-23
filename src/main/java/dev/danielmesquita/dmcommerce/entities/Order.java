@@ -1,4 +1,4 @@
-package dev.danielmesquita.dmcommerce.models;
+package dev.danielmesquita.dmcommerce.entities;
 
 import dev.danielmesquita.dmcommerce.enums.OrderStatus;
 import jakarta.persistence.*;

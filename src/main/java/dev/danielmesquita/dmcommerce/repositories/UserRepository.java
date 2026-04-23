@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.repositories;
 
-import dev.danielmesquita.dmcommerce.models.User;
+import dev.danielmesquita.dmcommerce.entities.User;
 import dev.danielmesquita.dmcommerce.projections.UserDetailsProjection;
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +14,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Optional<User> findByEmail(String email);
 
   @Query(
-          nativeQuery = true,
-          value =
-                  """
+      nativeQuery = true,
+      value =
+          """
                 SELECT tb_user.email AS username, tb_user.password, tb_role.id AS role_id, tb_role.authority
                 FROM tb_user
                 INNER JOIN tb_user_role ON tb_user.id = tb_user_role.user_id

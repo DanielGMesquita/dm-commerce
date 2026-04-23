@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.dtos;
 
-import dev.danielmesquita.dmcommerce.models.User;
+import dev.danielmesquita.dmcommerce.entities.User;
 
 public class UserMinDTO {
 

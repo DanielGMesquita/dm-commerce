@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.dtos;
 
-import dev.danielmesquita.dmcommerce.models.Product;
+import dev.danielmesquita.dmcommerce.entities.Product;
 import jakarta.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;

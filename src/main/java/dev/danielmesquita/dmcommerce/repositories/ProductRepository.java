@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.repositories;
 
-import dev.danielmesquita.dmcommerce.models.Product;
+import dev.danielmesquita.dmcommerce.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.dtos;
 
-import dev.danielmesquita.dmcommerce.models.Payment;
+import dev.danielmesquita.dmcommerce.entities.Payment;
 import java.time.Instant;
 
 public class PaymentDTO {

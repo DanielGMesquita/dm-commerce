@@ -1,4 +1,4 @@
-package dev.danielmesquita.dmcommerce.models;
+package dev.danielmesquita.dmcommerce.entities;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;

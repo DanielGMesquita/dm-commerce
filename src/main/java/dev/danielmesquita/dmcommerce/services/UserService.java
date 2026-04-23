@@ -1,8 +1,8 @@
 package dev.danielmesquita.dmcommerce.services;
 
 import dev.danielmesquita.dmcommerce.dtos.UserDTO;
-import dev.danielmesquita.dmcommerce.models.Role;
-import dev.danielmesquita.dmcommerce.models.User;
+import dev.danielmesquita.dmcommerce.entities.Role;
+import dev.danielmesquita.dmcommerce.entities.User;
 import dev.danielmesquita.dmcommerce.projections.UserDetailsProjection;
 import dev.danielmesquita.dmcommerce.repositories.UserRepository;
 import java.util.List;
@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
         .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
   }
 
-  @Transactional (readOnly = true)
+  @Transactional(readOnly = true)
   public UserDTO getMe() {
     User user = authenticated();
     return new UserDTO(user);

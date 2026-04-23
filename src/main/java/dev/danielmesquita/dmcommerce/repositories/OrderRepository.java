@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.repositories;
 
-import dev.danielmesquita.dmcommerce.models.Order;
+import dev.danielmesquita.dmcommerce.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package dev.danielmesquita.dmcommerce.dtos;
 
-import dev.danielmesquita.dmcommerce.models.User;
+import dev.danielmesquita.dmcommerce.entities.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

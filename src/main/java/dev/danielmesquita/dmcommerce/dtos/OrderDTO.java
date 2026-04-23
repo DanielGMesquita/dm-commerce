@@ -1,8 +1,8 @@
 package dev.danielmesquita.dmcommerce.dtos;
 
+import dev.danielmesquita.dmcommerce.entities.Order;
+import dev.danielmesquita.dmcommerce.entities.OrderItem;
 import dev.danielmesquita.dmcommerce.enums.OrderStatus;
-import dev.danielmesquita.dmcommerce.models.Order;
-import dev.danielmesquita.dmcommerce.models.OrderItem;
 import jakarta.validation.constraints.NotEmpty;
 import java.time.Instant;
 import java.util.ArrayList;

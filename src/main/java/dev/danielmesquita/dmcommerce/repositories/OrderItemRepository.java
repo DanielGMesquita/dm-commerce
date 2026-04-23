@@ -1,7 +1,7 @@
 package dev.danielmesquita.dmcommerce.repositories;
 
-import dev.danielmesquita.dmcommerce.models.OrderItem;
-import dev.danielmesquita.dmcommerce.models.OrderItemPK;
+import dev.danielmesquita.dmcommerce.entities.OrderItem;
+import dev.danielmesquita.dmcommerce.entities.OrderItemPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
