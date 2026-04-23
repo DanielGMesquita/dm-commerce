@@ -1,7 +1,7 @@
 package dev.danielmesquita.dmcommerce;
 
-import dev.danielmesquita.dmcommerce.models.Category;
-import dev.danielmesquita.dmcommerce.models.Product;
+import dev.danielmesquita.dmcommerce.entities.Category;
+import dev.danielmesquita.dmcommerce.entities.Product;
 import java.util.HashSet;
 import java.util.Set;
 
